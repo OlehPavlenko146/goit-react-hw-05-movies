@@ -1,7 +1,7 @@
 import { getTrendingMovies } from '../../services/api';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
 export const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);

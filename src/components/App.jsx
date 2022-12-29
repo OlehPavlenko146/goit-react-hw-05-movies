@@ -3,8 +3,8 @@ import { Home } from '../pages/Home/Home';
 import { Layout } from './Layout/Layout';
 import { Movies } from '../pages/Movies/Movies';
 import { MovieDetails } from '../pages/MovieDetails/MovieDetails';
-import { Cast } from '../components/Cast/Cast';
-import { Reviews } from '../components/Reviews/Reviews';
+// import { Cast } from '../components/Cast/Cast';
+// import { Reviews } from '../components/Reviews/Reviews';
 import { GlobalStyle } from './GlobalStyles';
 
 export const App = () => {
