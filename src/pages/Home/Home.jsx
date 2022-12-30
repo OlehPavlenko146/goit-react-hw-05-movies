@@ -1,9 +1,9 @@
 import { getTrendingMovies } from '../../services/api';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-// import { useLocation } from 'react-router-dom';
+import { HomeTitle, ListWrap, ListItem } from './Home.styled';
 
-export const Home = () => {
+const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
 
   useEffect(() => {
@@ -28,16 +28,18 @@ export const Home = () => {
 
   return (
     <main>
-      <ul>
-        <h1>Trending Movies</h1>
+      <HomeTitle>Trending Movies</HomeTitle>
+      <ListWrap>
         {trendingMovies?.map(trendingMovie => (
-          <li key={trendingMovie.id}>
+          <ListItem key={trendingMovie.id}>
             <Link to={`/movies/${trendingMovie.id}`}>
               {trendingMovie.title || trendingMovie.name}
             </Link>
-          </li>
+          </ListItem>
         ))}
-      </ul>
+      </ListWrap>
     </main>
   );
 };
+
+export default Home;

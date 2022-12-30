@@ -1,8 +1,18 @@
-import { getMovieDetails } from '../../services/api';
+import { getMovieDetails, getPoster, getDate } from '../../services/api';
 import { useState, useEffect } from 'react';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
+import {
+  MovieDetailsWrap,
+  GoBackLink,
+  MainMovieInfo,
+  TitleMovie,
+  Overview,
+  CastAndReviewWrap,
+  CastLink,
+  ReviewsLink,
+} from './MovieDetails.styled';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [movieInfo, setMovieInfo] = useState({});
   const { movieId } = useParams();
   const location = useLocation();
@@ -20,46 +30,42 @@ export const MovieDetails = () => {
     movieDetails();
   }, [movieId]);
 
-  function getDate(date) {
-    if (date) {
-      const year = date.split('-')[0];
-      return year;
-    }
-  }
-
   const { title, posterPath, releaseDate, genres, overview, voteAverage } =
     movieInfo;
 
   return (
-    <div>
-      <Link to={backLink}>Go back</Link>
+    <MovieDetailsWrap>
+      <GoBackLink to={backLink}>Back</GoBackLink>
 
-      <div>
-        <p>
-          Title: {title}
-          <span>({getDate(releaseDate)})</span>
-        </p>
-        <img src={posterPath} alt={title} width="250" />
+      <MainMovieInfo>
+        <img src={getPoster(posterPath)} alt={title} width="250" />
+
         <div>
-          <p>Overview: {overview}</p>
+          <TitleMovie>
+            Title: {title}
+            <span> ({getDate(releaseDate)})</span>
+          </TitleMovie>
+          <Overview>Overview: {overview}</Overview>
           <p>User Score: {Math.round(voteAverage * 10)}% </p>
-          {overview ? (
+          {genres ? (
             <p>Genre: {genres.map(genre => genre.name).join(', ')}</p>
           ) : (
             <p>Genre is undefined</p>
           )}
         </div>
-      </div>
+      </MainMovieInfo>
 
-      <div>
-        <Link to={'cast'} state={{ from: backLink }}>
+      <CastAndReviewWrap>
+        <CastLink to={'cast'} state={{ from: backLink }}>
           <p>Cast</p>
-        </Link>
-        <Link to={'reviews'} state={{ from: backLink }}>
+        </CastLink>
+        <ReviewsLink to={'reviews'} state={{ from: backLink }}>
           <p>Reviews</p>
-        </Link>
-      </div>
+        </ReviewsLink>
+      </CastAndReviewWrap>
       <Outlet />
-    </div>
+    </MovieDetailsWrap>
   );
 };
+
+export default MovieDetails;

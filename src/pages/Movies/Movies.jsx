@@ -3,8 +3,9 @@ import { SearchBar } from 'components/Searchbar/Searchbar';
 import { Loader } from 'components/Loader/Loader';
 import { useState, useEffect } from 'react';
 import { useSearchParams, useLocation, Link } from 'react-router-dom';
+import { MoviesListWrap, MoviesListItem } from './Movies.styled';
 
-export const Movies = () => {
+const Movies = () => {
   const location = useLocation();
   const [movies, setMovies] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -51,18 +52,20 @@ export const Movies = () => {
         <SearchBar onSubmit={changeQuery} />
 
         {movies.length > 0 && (
-          <ul>
+          <MoviesListWrap>
             {movies?.map(movie => (
-              <li key={movie.id}>
+              <MoviesListItem key={movie.id}>
                 <Link to={`/movies/${movie.id}`} state={{ from: location }}>
                   {movie.title}
                 </Link>
-              </li>
+              </MoviesListItem>
             ))}
-          </ul>
+          </MoviesListWrap>
         )}
       </div>
       {isLoading && <Loader />}
     </>
   );
 };
+
+export default Movies;

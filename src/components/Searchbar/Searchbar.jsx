@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { BiSearchAlt2 } from 'react-icons/bi';
 import {
   SearchWrap,
   SearchForm,
@@ -28,7 +27,6 @@ export const SearchBar = ({ onSubmit }) => {
       <SearchForm onSubmit={handleSubmit}>
         <SearchFormBtn type="submit">
           <span>Search</span>
-          <BiSearchAlt2 />
         </SearchFormBtn>
 
         <SearchFormInput
