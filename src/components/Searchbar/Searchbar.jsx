@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   SearchWrap,
   SearchForm,
@@ -7,19 +6,12 @@ import {
 } from './Searchbar.styled';
 import PropTypes from 'prop-types';
 
-export const SearchBar = ({ onSubmit }) => {
-  const [query, setQuery] = useState('');
-
-  const handleQueryChange = e => {
-    setQuery(e.currentTarget.value.toLowerCase());
-  };
-
+export const SearchBar = ({ value, onSubmit }) => {
   const handleSubmit = e => {
     e.preventDefault();
-    if (query.trim() === '') {
-      alert('Please enter your request');
-    }
-    onSubmit(query);
+    const form = e.target;
+    onSubmit(form.elements.query.value);
+    form.reset();
   };
 
   return (
@@ -35,8 +27,7 @@ export const SearchBar = ({ onSubmit }) => {
           autoFocus
           placeholder="Search movie"
           name="query"
-          value={query}
-          onChange={handleQueryChange}
+          defaultValue={value}
         />
       </SearchForm>
     </SearchWrap>

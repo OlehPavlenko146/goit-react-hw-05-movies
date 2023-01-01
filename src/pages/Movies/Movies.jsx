@@ -49,7 +49,7 @@ const Movies = () => {
   return (
     <>
       <div>
-        <SearchBar onSubmit={changeQuery} />
+        <SearchBar onSubmit={changeQuery} value={movie} />
 
         {movies.length > 0 && (
           <MoviesListWrap>
