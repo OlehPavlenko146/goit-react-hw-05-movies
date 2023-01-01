@@ -1,5 +1,5 @@
 import { getMovieDetails, getPoster, getDate } from '../../services/api';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
 import {
   MovieDetailsWrap,
@@ -11,6 +11,7 @@ import {
   CastLink,
   ReviewsLink,
 } from './MovieDetails.styled';
+import { Loader } from 'components/Loader/Loader';
 
 const MovieDetails = () => {
   const [movieInfo, setMovieInfo] = useState({});
@@ -39,7 +40,6 @@ const MovieDetails = () => {
 
       <MainMovieInfo>
         <img src={getPoster(posterPath)} alt={title} width="250" />
-
         <div>
           <TitleMovie>
             Title: {title}
@@ -54,7 +54,6 @@ const MovieDetails = () => {
           )}
         </div>
       </MainMovieInfo>
-
       <CastAndReviewWrap>
         <CastLink to={'cast'} state={{ from: backLink }}>
           <p>Cast</p>
@@ -63,7 +62,9 @@ const MovieDetails = () => {
           <p>Reviews</p>
         </ReviewsLink>
       </CastAndReviewWrap>
-      <Outlet />
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
     </MovieDetailsWrap>
   );
 };
